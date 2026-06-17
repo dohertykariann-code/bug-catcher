@@ -23,4 +23,31 @@ Set these on the host page (`:root`, `body`, or a wrapping container):
 
 ## Usage
 
-(Filled in once components land.)
+```tsx
+import { BugReportButton } from '@kari/bug-catcher-react';
+
+export default function AdminLayout({ children }) {
+  return (
+    <>
+      {children}
+      <BugReportButton
+        endpoint="/api/bug-report"
+        corner="bottom-right"
+        copy={{ buttonLabel: 'Report bug' }}
+      />
+    </>
+  );
+}
+```
+
+### Mobile offset stack (consumer-side CSS)
+
+If another fixed element occupies the corner on mobile, set the offset prop and add this rule to your global CSS:
+
+```css
+@media (max-width: 767px) {
+  button[data-bug-catcher-button] {
+    bottom: calc(1rem + var(--bug-catcher-mobile-offset, 0px));
+  }
+}
+```
