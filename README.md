@@ -8,13 +8,31 @@ Single package with three subpath exports:
 - `@kari/bug-catcher/server`: Zod schema, Sheets append, Vercel Blob upload, Postgres backup helper
 - `@kari/bug-catcher/server/next`: Next.js App Router adapter (peer-dep next@14+)
 
-## Install (consumer side)
+## Install
+
+Full step-by-step install runbook with every gotcha documented: **[INSTALL.md](./INSTALL.md)**
+
+Quick version:
 
 ```json
 "dependencies": {
-  "@kari/bug-catcher": "git+ssh://github.com/dohertykariann-code/bug-catcher.git#v0.1.1"
+  "@kari/bug-catcher": "git+https://github.com/dohertykariann-code/bug-catcher.git#v0.1.2"
 }
 ```
+
+> Use `git+https://` (not `git+ssh://`). The repo must be public OR you must configure Vercel GitHub auth; SSH deploy keys are required for private repos in CI.
+
+## Validation
+
+After setting env vars and before your first live test, run the pre-flight validator:
+
+```bash
+npm run bug-catcher:validate
+# or
+node node_modules/@kari/bug-catcher/scripts/validate-install.mjs
+```
+
+Checks: all three env vars present and well-formed, Sheet accessible, `bug_reports` tab exists, header row matches the expected 9 columns exactly, Blob token works.
 
 ## React side
 
