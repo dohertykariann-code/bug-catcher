@@ -1,12 +1,60 @@
 {
-  "name": "bug-catcher",
-  "version": "0.1.0",
-  "private": true,
-  "workspaces": ["packages/*"],
+  "name": "@kari/bug-catcher",
+  "version": "0.1.1",
+  "description": "Floating bug-report button + Google Sheets backend, drop-in module",
+  "type": "module",
+  "exports": {
+    "./react": {
+      "import": "./dist/react/index.js",
+      "types": "./dist/react/index.d.ts"
+    },
+    "./server": {
+      "import": "./dist/server/index.js",
+      "types": "./dist/server/index.d.ts"
+    },
+    "./server/next": {
+      "import": "./dist/server/next.js",
+      "types": "./dist/server/next.d.ts"
+    }
+  },
+  "files": ["dist", "migrations", "README.md"],
   "scripts": {
-    "test": "npm run test --workspaces --if-present",
-    "build": "npm run build --workspaces --if-present",
-    "lint": "npm run lint --workspaces --if-present"
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "prepare": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.4.0",
+    "googleapis": "^144.0.0",
+    "nanoid": "^5.0.0",
+    "zod": "^4.4.0"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "next": ">=14"
+  },
+  "peerDependenciesMeta": {
+    "react": { "optional": true },
+    "react-dom": { "optional": true },
+    "next": { "optional": true }
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.0",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.5.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "jsdom": "^25.0.0",
+    "next": "^14.0.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
   },
   "engines": { "node": ">=20" }
 }
